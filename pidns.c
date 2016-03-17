@@ -1,13 +1,10 @@
-#define _GNU_SOURCE
 #include <sched.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
-#include <unistd.h>
 #include <stdbool.h>
 
 #define STACK_SIZE (1024 * 1024)
-static char child_stack[STACK_SIZE];    /* Space for child's stack */
 
 static int childFunc() {
   printf("childFunc(): PID  = %ld\n", (long) getpid());
