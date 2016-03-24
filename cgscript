@@ -14,7 +14,7 @@ free -m
 echo 3 > /proc/sys/vm/drop_caches
 
 cgcreate -g blkio:/restrict-reads
-See doc on kernel.org
+See doc on kernel.org: https://www.kernel.org/doc/Documentation/cgroup-v1/blkio-controller.txt
 
 mount to see where / is mounted
 ls /dev to see what the major and minor for that device is
@@ -24,3 +24,11 @@ cgexec -g blkio:/restrict-reads dd if=three-gb of=/dev/null
 
 iotop
 cat /sys/fs/cgroup/blkio/restrict-reads/tasks
+
+
+see mem-swallow
+run mem-swallow
+cgcreate -g memory:/restrict-mem
+See doc in kernel.org: https://www.kernel.org/doc/Documentation/cgroup-v1/memory.txt
+
+echo 10485760 > /sys/fs/cgroup/memory/restrict-mem/
