@@ -1,0 +1,26 @@
+tasks
+procs - thread-groups
+event-control - for OOM or other signals
+notify (t/f), release - for all processes in a control group terminate
+
+mkdir test1
+cgcreate example test1 in blkio
+cgdelete blkio:/test1
+
+dd if=/dev/zero of=three-gb bs=1M count=3000
+
+sync
+free -m
+echo 3 > /proc/sys/vm/drop_caches
+
+cgcreate -g blkio:/restrict-reads
+See doc on kernel.org
+
+mount to see where / is mounted
+ls /dev to see what the major and minor for that device is
+echo "8:0 2097152" > blkio.throtte.read_bps_device
+
+cgexec -g blkio:/restrict-reads dd if=three-gb of=/dev/null
+
+iotop
+cat /sys/fs/cgroup/blkio/restrict-reads/tasks
